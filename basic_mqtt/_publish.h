@@ -1,4 +1,5 @@
 #include <MqttConnector.h>
+#include <DHT.h>
 
 extern int relayPinState;
 extern MqttConnector* mqtt;
@@ -7,8 +8,10 @@ extern char myName[];
 
 static void readSensor();
 
-float sensorValue1;
-float sensorValue2;
+// sensor
+float temperature_c, humidity_percent_rh = 0;
+DHT dht(12, DHT11);
+
 
 extern String DEVICE_NAME;
 extern int PUBLISH_EVERY;
@@ -16,8 +19,8 @@ extern int PUBLISH_EVERY;
 void register_publish_hooks() {
   strcpy(myName, DEVICE_NAME.c_str());
   mqtt->on_prepare_data_once([&](void) {
-    sensorValue1 = -1.0;
-    sensorValue1 = -1.0;
+    Serial.println("initializing sensor...");
+    dht.begin();
   });
 
   mqtt->on_before_prepare_data([&](void) {
@@ -29,8 +32,8 @@ void register_publish_hooks() {
     JsonObject& info = (*root)["info"];
     data["myName"] = myName;
     data["millis"] = millis();
-    data["sensorValue1"] = sensorValue1;
-    data["sensorValue2"] = sensorValue2;
+    data["temperature_c"] = temperature_c;
+    data["humidity_percent_rh"] = humidity_percent_rh;
     data["state"] = relayPinState;
   }, PUBLISH_EVERY);
 
@@ -44,6 +47,25 @@ void register_publish_hooks() {
 }
 
 static void readSensor() {
-  sensorValue1 = millis()*0.5;
-  sensorValue2 = millis()*0.75;
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float f = dht.readTemperature(true);
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  else {
+    temperature_c = t;
+    humidity_percent_rh = h;
+    Serial.print("Temp: ");
+    Serial.println(temperature_c);
+    Serial.print("Humid: ");
+    Serial.println(humidity_percent_rh);
+  }
+
 }
