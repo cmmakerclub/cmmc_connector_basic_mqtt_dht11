@@ -63,9 +63,7 @@ MqttConnector::MqttConnector(const char* host, uint16_t port)
 
             const char *p = p_topic.c_str();
             int fc = 0;
-            while(*p++ != '/') {
-              fc++;
-            }
+            while(*p++ != '/') { fc++; }
             _user_on_after_message_arrived(p_topic, p_topic.substring(fc+1), pub.payload_string());
         }
     };
@@ -205,13 +203,13 @@ void MqttConnector::_hook_config()
 
     // subscribe
     if (_config.topicSub.length() == 0) {
-      _config.topicSub = String(_config.channelPrefix) + String("/") +
-      String(_config.clientId) + commandChannel;
+      _config.topicSub = String(_config.channelPrefix) +
+        String(_config.clientId) + commandChannel;
     }
 
     // publish
     if (_config.topicPub.length() == 0) {
-      _config.topicPub = String(_config.channelPrefix) + String("/") +
+      _config.topicPub = String(_config.channelPrefix) +
       String(_config.clientId) + statusChannel;
     }
 
@@ -220,8 +218,8 @@ void MqttConnector::_hook_config()
     MQTT_DEBUG_PRINT("TOPIC PUB = ");
     MQTT_DEBUG_PRINTLN(_config.topicSub);
 
-    _config.topicLastWill = String(_config.channelPrefix) + String("/") +
-    String(_config.clientId) + lwtChannel;
+    _config.topicLastWill = String(_config.channelPrefix) +
+      String(_config.clientId) + lwtChannel;
 
     (*info)["client_id"] = _config.clientId;
     (*info)["device_id"] = _config.clientId;
@@ -362,11 +360,6 @@ void MqttConnector::doPublish(bool force)
         MQTT_DEBUG_PRINT(jsonStrbuffer);
         #endif
         MQTT_DEBUG_PRINTLN();
-
-        // if (_user_hook_publish_data != NULL)
-        // {
-        //     _user_hook_publish_data(dataPtr);
-        // }
 
         MQTT::Publish newpub(_config.topicPub, (uint8_t*)jsonStrbuffer, strlen(jsonStrbuffer));
         if (_config.retainPublishMessage) {

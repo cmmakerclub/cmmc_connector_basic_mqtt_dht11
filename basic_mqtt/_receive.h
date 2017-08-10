@@ -14,8 +14,8 @@ extern char myName[];
 void register_receive_hooks() {
   mqtt->on_subscribe([&](MQTT::Subscribe *sub) -> void {
     Serial.printf("myName = %s \r\n", myName);
-    sub->add_topic(MQTT_PREFIX + "/" + myName + "/$/+");
-    sub->add_topic(MQTT_PREFIX + "/" + MQTT_CLIENT_ID + "/$/+");
+    sub->add_topic(MQTT_PREFIX + myName + "/$/+");
+    sub->add_topic(MQTT_PREFIX + MQTT_CLIENT_ID + "/$/+");
   });
 
   mqtt->on_before_message_arrived_once([&](void) { });

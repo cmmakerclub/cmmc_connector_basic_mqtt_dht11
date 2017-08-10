@@ -56,7 +56,7 @@ void init_mqtt()
   });
 
   mqtt->on_after_prepare_configuration([&](MqttConnector::Config config) -> void {
-    String humanTopic = MQTT_PREFIX + "/" + myName + "/$/+";
+    String humanTopic = MQTT_PREFIX + myName + "/$/+";
     Serial.printf("[USER] HOST = %s\r\n", config.mqttHost.c_str());
     Serial.printf("[USER] PORT = %d\r\n", config.mqttPort);
     Serial.printf("[USER] PUB  = %s\r\n", config.topicPub.c_str());
