@@ -13,7 +13,7 @@ MqttConnector *mqtt;
 
 /* WIFI INFO */
 String WIFI_SSID        = "MARUNET";
-String WIFI_PASSWORD    = "ARCGlobe!1";
+String WIFI_PASSWORD    = "!1";
 
 String MQTT_HOST        = "q.cmmc.io";
 String MQTT_USERNAME    = "";
