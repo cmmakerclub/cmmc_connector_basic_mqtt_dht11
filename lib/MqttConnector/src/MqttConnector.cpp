@@ -213,8 +213,8 @@ void MqttConnector::_hook_config()
       String(_config.clientId) + statusChannel;
     }
 
-    _config.topicPubRaw =  String(_config.channelPrefix) + "raw/" +
-    String(_config.clientId) + statusChannel;
+    // _config.topicPubRaw =  String(_config.channelPrefix) + "raw/" +
+    // String(_config.clientId) + statusChannel;
 
     MQTT_DEBUG_PRINT("TOPIC SUB = ");
     MQTT_DEBUG_PRINTLN(_config.topicSub);
@@ -365,7 +365,6 @@ void MqttConnector::doPublish(bool force)
         MQTT_DEBUG_PRINTLN();
 
         MQTT::Publish newpub(_config.topicPub, (uint8_t*)jsonStrbuffer, strlen(jsonStrbuffer));
-        MQTT::Publish newpub2(_config.topicPubRaw, (uint8_t*)jsonStrbuffer, strlen(jsonStrbuffer));
         if (_config.retainPublishMessage) {
             newpub.set_retain(true) ;
         }
@@ -382,8 +381,6 @@ void MqttConnector::doPublish(bool force)
                 _user_on_after_publish(newpub);
             }
         }
-
-        _config.client->publish(newpub2);
 
         MQTT_DEBUG_PRINTLN("====================================");
         MQTT_DEBUG_PRINTLN("====================================");
