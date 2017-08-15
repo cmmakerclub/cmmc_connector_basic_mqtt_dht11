@@ -15,15 +15,15 @@ MqttConnector *mqtt;
 String WIFI_SSID        = "MARUNET";
 String WIFI_PASSWORD    = "!1";
 
-String MQTT_HOST        = "q.cmmc.io";
+String MQTT_HOST        = "beta.cmmc.io";
 String MQTT_USERNAME    = "";
 String MQTT_PASSWORD    = "";
 String MQTT_CLIENT_ID   = "";
 String MQTT_PREFIX      = "MARU/";
-int    MQTT_PORT        = 2883;
+int    MQTT_PORT        = 51883;
 int PUBLISH_EVERY       = 10000;
 
-String DEVICE_NAME      = "DEVICE-001";
+String DEVICE_NAME      = "B-001";
 int relayPin            = 15;
 int MQTT_CONNECT_TIMEOUT= 5000;
 char myName[40];
