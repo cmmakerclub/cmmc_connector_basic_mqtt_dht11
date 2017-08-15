@@ -53,6 +53,7 @@ public:
         String channelPrefix;
         String topicSub;
         String topicPub;
+        String topicPubRaw;
         String topicLastWill;
         String username;
         String password;
