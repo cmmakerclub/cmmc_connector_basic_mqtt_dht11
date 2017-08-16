@@ -10,7 +10,7 @@ static void readSensor();
 
 // sensor
 float temperature_c, humidity_percent_rh = 0;
-DHT dht(12, DHT11);
+DHT dht(12, DHT22);
 
 
 extern String DEVICE_NAME;

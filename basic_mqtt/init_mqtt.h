@@ -34,7 +34,7 @@ void init_mqtt()
     config->clientId  = MQTT_CLIENT_ID;
     config->channelPrefix = MQTT_PREFIX;
     config->enableLastWill = true;
-    config->retainPublishMessage = true;
+    config->retainPublishMessage = false;
     /*
         config->mode
         ===================
@@ -52,7 +52,7 @@ void init_mqtt()
     // FORMAT
     // d:quickstart:<type-id>:<device-id>
     //config->clientId  = String("d:quickstart:esp8266meetup:") + macAddr;
-    //config->topicPub  = String("iot-2/evt/status/fmt/json");
+    config->topicPub  = MQTT_PREFIX + String(myName) + "/status";
   });
 
   mqtt->on_after_prepare_configuration([&](MqttConnector::Config config) -> void {

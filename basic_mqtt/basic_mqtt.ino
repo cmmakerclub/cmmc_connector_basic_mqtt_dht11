@@ -12,8 +12,8 @@
 MqttConnector *mqtt;
 
 /* WIFI INFO */
-String WIFI_SSID        = "MARUNET";
-String WIFI_PASSWORD    = "!1";
+String WIFI_SSID        = "belkin.636";
+String WIFI_PASSWORD    = "3eb7e66b";
 
 String MQTT_HOST        = "beta.cmmc.io";
 String MQTT_USERNAME    = "";
@@ -23,7 +23,7 @@ String MQTT_PREFIX      = "MARU/";
 int    MQTT_PORT        = 51883;
 int PUBLISH_EVERY       = 10000;
 
-String DEVICE_NAME      = "B-001";
+String DEVICE_NAME      = "NAT-001";
 int relayPin            = 15;
 int MQTT_CONNECT_TIMEOUT= 5000;
 char myName[40];
@@ -42,6 +42,10 @@ void init_hardware()
 }
 
 void init_wifi() {
+  WiFi.disconnect();
+  delay(20);
+  WiFi.mode(WIFI_STA);
+  delay(50);
   const char* ssid =  WIFI_SSID.c_str();
   const char* pass =  WIFI_PASSWORD.c_str();
   WiFi.begin(ssid, pass);
