@@ -213,9 +213,6 @@ void MqttConnector::_hook_config()
       String(_config.clientId) + statusChannel;
     }
 
-    // _config.topicPubRaw =  String(_config.channelPrefix) + "raw/" +
-    // String(_config.clientId) + statusChannel;
-
     MQTT_DEBUG_PRINT("TOPIC SUB = ");
     MQTT_DEBUG_PRINTLN(_config.topicSub);
     MQTT_DEBUG_PRINT("TOPIC PUB = ");
